@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Гайд ADAMS: почему на турнире ты не тот, что на тренировке — и что делать за 60 секунд до выхода.">
+<meta property="og:title" content="На тренировке ты один. На турнире — другой.">
+<meta property="og:description" content="8 минут разбора: что ломается под давлением и как это удержать.">
+<meta property="og:type" content="website">
+<title>Протокол мандража</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#0A0C0F;
+    --surface:#12151A;
+    --surface-2:#171B21;
+    --ink:#EDEAE5;
+    --ink-dim:#8C9299;
+    --ink-faint:#5A6169;
+    --accent:#F26522;
+    --accent-hot:#FF7A38;
+    --accent-deep:#A83D11;
+    --line:rgba(237,234,229,0.12);
+    --line-strong:rgba(237,234,229,0.24);
+    --measure:60ch;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{color:inherit;}
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .page{
+    max-width:960px;
+    margin:0 auto;
+    padding:clamp(48px,8vw,88px) clamp(20px,5vw,40px) 72px;
+  }
+
+  .shell{max-width:660px;}
+
+  /* ---------- header ---------- */
+
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 26px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;
+    height:2px;
+    background:var(--accent);
+    flex:none;
+  }
+
+  h1{
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;
+    font-weight:900;
+    font-size:clamp(40px,7.5vw,66px);
+    line-height:0.95;
+    letter-spacing:-0.005em;
+    text-transform:uppercase;
+    text-wrap:balance;
+    margin:0 0 20px;
+  }
+  h1 .hot{color:var(--accent);}
+
+  .lede{
+    font-size:clamp(18px,2.4vw,20px);
+    color:var(--ink-dim);
+    max-width:52ch;
+    margin:0 0 44px;
+  }
+
+  /* ---------- player ---------- */
+
+  .player{
+    display:block;
+    width:100%;
+    padding:0;
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    color:inherit;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+    position:relative;
+  }
+  .player__bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:11px 16px;
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .player__live{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+  }
+  .player__live::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 10px rgba(242,101,34,0.85);
+    flex:none;
+  }
+  .player__stage{
+    position:relative;
+    aspect-ratio:16/9;
+    display:grid;
+    place-items:center;
+    background:radial-gradient(ellipse 70% 90% at 50% 42%,#1D2229 0%,#0C0E12 78%);
+    overflow:hidden;
+  }
+  .player__stage::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.018) 0 1px,
+      transparent 1px 3px
+    );
+    pointer-events:none;
+  }
+  .player__play{
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    border:1.5px solid var(--line-strong);
+    background:rgba(237,234,229,0.05);
+    display:grid;
+    place-items:center;
+    transition:border-color .18s ease,background .18s ease,transform .18s ease;
+  }
+  .player__play::after{
+    content:"";
+    width:0;
+    height:0;
+    border-top:12px solid transparent;
+    border-bottom:12px solid transparent;
+    border-left:19px solid var(--ink);
+    margin-left:6px;
+    transition:border-left-color .18s ease;
+  }
+  .player:hover .player__play,
+  .player:focus-visible .player__play{
+    border-color:var(--accent);
+    background:rgba(242,101,34,0.12);
+    transform:scale(1.04);
+  }
+  .player:hover .player__play::after{border-left-color:var(--accent-hot);}
+  .player__meta{
+    position:absolute;
+    left:16px;
+    right:16px;
+    bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    color:var(--ink-dim);
+  }
+  .player iframe{
+    display:block;
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+  }
+
+  .fallback{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:12px;
+    color:var(--ink-dim);
+    margin:12px 0 0;
+  }
+  .fallback a{color:var(--accent);}
+
+  /* ---------- sequence ---------- */
+
+  .inside{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:28px;
+    margin:52px 0 44px;
+    padding:0;
+    list-style:none;
+  }
+  .inside li{
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+  .inside .num{
+    display:block;
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;
+    font-weight:800;
+    font-size:30px;
+    line-height:1;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  .inside .txt{
+    font-size:15px;
+    color:var(--ink-dim);
+  }
+
+  hr.rule{
+    border:0;
+    height:1px;
+    background:var(--line);
+    margin:0 0 40px;
+  }
+
+  .prose p{
+    max-width:var(--measure);
+    margin:0 0 22px;
+  }
+  .prose p.dim{color:var(--ink-dim);}
+  .prose strong{
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  /* ---------- closer ---------- */
+
+  .closer{
+    margin-top:52px;
+    padding:30px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+  }
+  .closer h2{
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;
+    font-weight:800;
+    font-size:30px;
+    line-height:1.05;
+    text-transform:uppercase;
+    margin:0 0 12px;
+  }
+  .closer p{
+    margin:0 0 22px;
+    color:var(--ink-dim);
+    max-width:48ch;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 24px;
+    background:var(--accent);
+    color:#120802;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    transition:background .16s ease,transform .16s ease;
+  }
+  .cta::after{content:"→";}
+  .cta:hover{background:var(--accent-hot);transform:translateY(-1px);}
+
+  footer{
+    margin-top:56px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+    .cta:hover,.player:hover .player__play{transform:none;}
+  }
+</style>
+
+</head>
+<body>
+<main class="page">
+  <div class="shell">
+
+    <header>
+      <p class="eyebrow">ADAMS // Гайд</p>
+      <h1>На тренировке ты один.<br>На турнире — <span class="hot">другой</span>.</h1>
+      <p class="lede">И дело не в приёмах, которых ты не выучил. 8 минут разбора — что ломается под давлением и как это удержать.</p>
+    </header>
+
+    <button class="player" id="player" type="button"
+            aria-label="Смотреть гайд: Как перестать бояться на соревнованиях, 8 минут 18 секунд">
+      <span class="player__bar">
+        <span class="player__live">Гайд · Как перестать бояться на соревнованиях</span>
+        <span>08:18</span>
+      </span>
+      <span class="player__stage">
+        <span class="player__play" aria-hidden="true"></span>
+        <span class="player__meta">
+          <span>ADAMS SYSTEM</span>
+          <span>1080p</span>
+        </span>
+      </span>
+    </button>
+    <p class="fallback">Видео не запускается? <a href="https://youtu.be/888HC6CW_4Y" target="_blank" rel="noopener">Откройте его напрямую →</a></p>
+
+    <ol class="inside">
+      <li><span class="num">01</span><span class="txt">Почему провал не в технике</span></li>
+      <li><span class="num">02</span><span class="txt">Что происходит с головой под давлением</span></li>
+      <li><span class="num">03</span><span class="txt">Что делать за 60 секунд до выхода</span></li>
+    </ol>
+
+    <hr class="rule">
+
+    <section class="prose">
+      <p>Большинство после провала идут учить новые приёмы. Ищут пробел в технике. И сыпятся снова — потому что проблема была не там.</p>
+      <p class="dim">Под давлением первым отключается не тело. Первой уходит голова: сужается внимание, сбивается дыхание — и ты делаешь то, чего не делал ни разу на тренировке.</p>
+      <p>Это <strong>не мотивационное видео</strong>. Здесь нет «поверь в себя». Здесь механика: почему это происходит именно с тобой и что с этим делать до того, как прозвучит гонг.</p>
+    </section>
+
+    <section class="closer">
+      <h2>Это только начало</h2>
+      <p>Турнирная психология, дисциплина, здоровье, питание — разборы без воды, каждую неделю.</p>
+      <a class="cta" href="https://t.me/adams_system" target="_blank" rel="noopener">Канал @adams_system</a>
+    </section>
+
+    <footer>ADAMS — Спортивно-мужской ментор</footer>
+
+  </div>
+</main>
+
+<script>
+  (function(){
+    var btn = document.getElementById('player');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/888HC6CW_4Y?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      frame.title = 'Гайд: Как перестать бояться на соревнованиях';
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      frame.setAttribute('allowfullscreen','');
+      frame.setAttribute('loading','lazy');
+      var wrap = document.createElement('div');
+      wrap.className = 'player';
+      wrap.appendChild(frame);
+      btn.replaceWith(wrap);
+    });
+  })();
+</script>
+
+</body>
+</html>
