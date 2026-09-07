@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Гайд «Мандраж» — ADAMS</title>
+<meta name="description" content="Разбор на 8 минут: почему на турнире ты не тот, что на тренировке, и что делать за 60 секунд до выхода.">
+<meta property="og:title" content="Не отдавай волнению то, что заработал тренировками">
+<meta property="og:description" content="Гайд ADAMS: что ломается под давлением и как вернуть контроль до выхода на ковёр.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0C0B0A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#0C0B0A;
+    --surface-2:#1B1813;
+    --ink:#F4F0EA;
+    --ink-dim:#A39C92;
+    --accent:#F26522;
+    --accent-hot:#FF7C3D;
+    --line:rgba(244,240,234,0.10);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Golos Text',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px;}
+
+  .page{
+    max-width:620px;
+    margin:0 auto;
+    padding:clamp(38px,8vw,72px) clamp(22px,6vw,40px) 72px;
+  }
+
+  .kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 24px;
+  }
+  .kicker::before{
+    content:"";
+    width:20px;height:2px;
+    background:var(--accent);
+    border-radius:2px;
+  }
+
+  h1{
+    font-family:'Unbounded','Golos Text',sans-serif;
+    font-weight:700;
+    font-size:clamp(27px,7vw,40px);
+    line-height:1.16;
+    letter-spacing:-0.02em;
+    text-wrap:balance;
+    margin:0 0 20px;
+  }
+  h1 .accent{color:var(--accent);}
+
+  .lede{
+    font-size:clamp(17px,4.4vw,19px);
+    line-height:1.5;
+    color:var(--ink-dim);
+    max-width:36ch;
+    margin:0 0 34px;
+  }
+
+  /* ——— кнопка ——— */
+
+  .cta{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:11px;
+    width:100%;
+    padding:19px 26px;
+    border-radius:12px;
+    background:var(--accent);
+    color:#140A03;
+    font-weight:600;
+    font-size:17px;
+    text-decoration:none;
+    box-shadow:0 14px 34px -14px rgba(242,101,34,0.6);
+    transition:background .18s ease, transform .18s ease;
+  }
+  .cta::after{content:"→";font-size:19px;}
+  .cta:hover{background:var(--accent-hot);transform:translateY(-2px);}
+  .cta:active{transform:translateY(0);}
+
+  .note{
+    font-size:14px;
+    line-height:1.5;
+    color:var(--ink-dim);
+    margin:14px 0 0;
+  }
+  .note--hint{
+    font-size:13px;
+    margin-top:10px;
+    opacity:.75;
+  }
+
+  /* ——— что внутри ——— */
+
+  .steps{
+    display:grid;
+    gap:22px;
+    list-style:none;
+    padding:0;
+    margin:52px 0 44px;
+  }
+  .steps li{border-top:1px solid var(--line);padding-top:15px;}
+  .steps b{
+    display:block;
+    font-family:'Unbounded','Golos Text',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:0.02em;
+    margin-bottom:6px;
+  }
+  .steps span{font-size:16px;color:var(--ink-dim);line-height:1.5;}
+
+  /* ——— текст ——— */
+
+  .prose{border-top:1px solid var(--line);padding-top:38px;}
+  .prose p{margin:0 0 22px;}
+  .prose p.dim{color:var(--ink-dim);}
+  .prose strong{font-weight:600;}
+
+  /* ——— повтор кнопки ——— */
+
+  .closer{
+    margin-top:44px;
+    padding:clamp(24px,6vw,34px);
+    border-radius:16px;
+    background:var(--surface-2);
+  }
+  .closer h2{
+    font-family:'Unbounded','Golos Text',sans-serif;
+    font-weight:700;
+    font-size:clamp(20px,5vw,25px);
+    line-height:1.25;
+    letter-spacing:-0.01em;
+    margin:0 0 12px;
+  }
+  .closer p{margin:0 0 24px;color:var(--ink-dim);}
+
+  footer{
+    margin-top:52px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    color:var(--ink-dim);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+    .cta:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <p class="kicker">Гайд ADAMS · бесплатно</p>
+
+  <h1>Не отдавай волнению то, что <span class="accent">заработал тренировками</span>.</h1>
+
+  <p class="lede">Разбор на 8 минут: почему на турнире ты не тот, что на тренировке — и что делать за 60 секунд до выхода.</p>
+
+  <a class="cta" href="https://t.me/adams_systembot?start=tiktok">Забрать гайд</a>
+
+  <p class="note">Откроется Telegram. Бот проверит подписку на канал и сразу пришлёт ссылку на разбор.</p>
+  <p class="note note--hint">Не открывается? Нажми «···» вверху справа и выбери «Открыть в браузере».</p>
+
+  <ol class="steps">
+    <li><b>01</b><span>Почему провал не в технике</span></li>
+    <li><b>02</b><span>Что происходит с головой под давлением</span></li>
+    <li><b>03</b><span>Что делать за 60 секунд до выхода</span></li>
+  </ol>
+
+  <section class="prose">
+    <p>Самое обидное — проиграть не потому, что соперник был сильнее, а потому, что в решающий момент ты не показал даже половины того, что умеешь.</p>
+    <p class="dim">Под давлением первым отключается не тело. Первой уходит голова: сужается внимание, сбивается дыхание — и ты делаешь то, чего не делал ни разу на тренировке.</p>
+    <p>Это <strong>не мотивационное видео</strong>. Здесь нет «поверь в себя». Здесь механика: почему это происходит именно с тобой и что с этим делать до того, как прозвучит гонг.</p>
+  </section>
+
+  <section class="closer">
+    <h2>Забирай разбор</h2>
+    <p>Бот отдаст ссылку сразу после проверки подписки.</p>
+    <a class="cta" href="https://t.me/adams_systembot?start=tiktok">Забрать гайд</a>
+  </section>
+
+  <footer>ADAMS — спортивно-мужской ментор</footer>
+
+</main>
+
+</body>
+</html>
