@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Чек-лист по сну</title>
+<meta name="description" content="Чек-лист ADAMS по сну перед турниром — забрать в Telegram.">
+<meta name="theme-color" content="#0C0B0A">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Golos+Text:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#0C0B0A;
+    --ink:#F4F0EA;
+    --ink-dim:#A39C92;
+    --accent:#F26522;
+    --accent-hot:#FF7C3D;
+    --line:rgba(244,240,234,0.10);
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100svh;
+    display:grid;
+    place-items:center;
+    padding:32px 22px;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Golos Text',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    text-align:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{max-width:420px;width:100%;}
+  .cover{
+    width:100%;
+    max-width:300px;
+    border-radius:16px;
+    display:block;
+    margin:0 auto 28px;
+    box-shadow:0 20px 50px -24px rgba(0,0,0,.9);
+  }
+  h1{
+    font-family:'Unbounded','Golos Text',sans-serif;
+    font-weight:700;
+    font-size:clamp(23px,6vw,30px);
+    line-height:1.2;
+    letter-spacing:-0.02em;
+    margin:0 0 12px;
+    text-wrap:balance;
+  }
+  p{color:var(--ink-dim);margin:0 0 28px;}
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    padding:18px 26px;
+    border-radius:12px;
+    background:var(--accent);
+    color:#140A03;
+    font-weight:600;
+    font-size:17px;
+    text-decoration:none;
+    transition:background .18s ease;
+  }
+  .cta::after{content:"→";font-size:19px;}
+  .cta:active{background:var(--accent-hot);}
+  .hint{font-size:14px;color:var(--ink-dim);margin:18px 0 0;}
+  footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-dim);}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:4px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<main class="card">
+  <img class="cover" src="../img/cover-sleep.jpg" alt="Чек-лист: сон перед турниром" width="1086" height="1448">
+  <h1>Чек-лист по сну перед турниром</h1>
+  <p>Забирай в Telegram — откроется сразу после запуска бота.</p>
+  <a class="cta" id="go" href="https://t.me/adams_systembot?start=son_tt" rel="noopener">Забрать чек-лист</a>
+  <p class="hint">Если ничего не открылось — нажми кнопку выше</p>
+  <footer>ADAMS — спортивно-мужской ментор</footer>
+</main>
+
+<script>
+  (function () {
+    // источник можно переопределить: /son/?s=ig, /son/?s=yt и т.д.
+    var src = new URLSearchParams(location.search).get("s");
+    src = (src || "tt").toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 16) || "tt";
+
+    var link = document.getElementById("go");
+    link.href = "https://t.me/adams_systembot?start=son_" + src;
+
+    // мягкий автопереход: если встроенный браузер его заблокирует,
+    // человек всё равно видит кнопку и жмёт руками
+    setTimeout(function () {
+      location.href = link.href;
+    }, 1200);
+  })();
+</script>
+
+</body>
+</html>
