@@ -6,200 +6,235 @@
 <title>Тело помнит всё — разбор для борца</title>
 <meta name="description" content="Что из книги Бессела ван дер Колка «Тело помнит всё» работает на турнире: почему старое поражение всплывает телом и что с этим делать.">
 <meta property="og:title" content="Тело помнит всё — разбор для борца">
-<meta property="og:description" content="Шесть идей из книги, применимых к схватке и турниру.">
+<meta property="og:description" content="Шесть идей из книги, переведённых на язык схватки.">
 <meta property="og:type" content="article">
-<meta name="theme-color" content="#100904">
+<meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=Inter:wght@400;500&display=swap">
 <style>
-  /* Дизайн-система: ORYZO AI (styles.refero.design) — «darkroom product editorial» */
+  /* Дизайн-система: Modal (styles.refero.design).
+     Взяты типографическая шкала, трекинг, сетка 4px, отступы, радиусы,
+     глубина через сдвиг поверхностей и волосяные границы.
+     Акцент заменён на фирменный оранжевый ADAMS. */
   :root{
-    --walnut:#100904;      /* фон */
-    --bark:#382416;        /* поверхность */
-    --cork:#40372e;        /* границы */
-    --driftwood:#6c5f51;   /* приглушённое */
-    --cream:#ffedd7;       /* текст */
-    --ember:#dc5000;       /* акцент */
+    /* поверхности — ramp Modal без изменений */
+    --void:#000000;
+    --ground:#181818;
+    --veil:#212525;
+    --hairline:#3a3431;     /* аналог Circuit Border, переведён в тёплый нейтральный */
 
-    --surface:#19100A;
-    --ink-dim:#a89685;     /* осветлён от driftwood ради читаемости на тёмном */
-    --measure:64ch;
+    /* текст — по правилу Modal: основной текст приглушённый, не белый */
+    --ink:#ffeee2;          /* заголовки, иконки, текст на заливке */
+    --body:#a89a8f;         /* основной текст */
+    --muted:#7d736c;        /* подписи, микрокопия */
+
+    --accent:#f26522;       /* ровно один залитый элемент на экран */
+
+    /* шкала Modal: минорная терция от 14px */
+    --display:64px; --h-lg:42px; --h:30px; --h-sm:24px;
+
+    --unit:4px;
+    --section:80px;
+    --card:32px;
+    --gap:20px;
+    --r-card:8px;
+    --r-btn:12px;
   }
+
   *,*::before,*::after{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%;}
+
   body{
     margin:0;
-    background:var(--walnut);
-    color:var(--cream);
-    font-family:'Golos Text',-apple-system,BlinkMacSystemFont,sans-serif;
-    font-size:18px;
-    line-height:1.68;
+    background:var(--void);
+    color:var(--body);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    letter-spacing:-0.022em;
+    font-feature-settings:'cv11';
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;}
-  :focus-visible{outline:2px solid var(--ember);outline-offset:4px;border-radius:3px;}
+  :focus-visible{outline:1px solid var(--accent);outline-offset:4px;}
 
-  .page{max-width:940px;margin:0 auto;padding:clamp(52px,9vw,104px) clamp(22px,5vw,44px) 84px;}
-  .col{max-width:660px;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,5vw,40px);}
+  .col{max-width:680px;}
+
+  header.hero{padding:clamp(56px,10vw,120px) 0 0;}
 
   .eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--ember);margin:0 0 30px;
+    font-size:12px;font-weight:500;line-height:1.33;
+    letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 var(--gap);
   }
-  .eyebrow::before{content:"";width:22px;height:1px;background:var(--ember);}
 
   h1{
-    font-family:'Unbounded','Golos Text',sans-serif;
-    font-weight:700;
-    font-size:clamp(30px,5vw,46px);
-    line-height:1.1;letter-spacing:-.025em;
-    margin:0 0 18px;text-wrap:balance;
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:400;
+    font-size:clamp(38px,7vw,var(--display));
+    line-height:1;
+    letter-spacing:-0.007em;
+    color:var(--ink);
+    margin:0 0 var(--gap);
+    text-wrap:balance;
   }
-  .sub{font-size:clamp(17px,2.2vw,19px);color:var(--ink-dim);max-width:46ch;margin:0 0 14px;}
-  .byline{font-size:15px;color:var(--driftwood);margin:0;}
+  .lead{
+    font-size:20px;line-height:1.5;letter-spacing:-0.018em;
+    max-width:44ch;margin:0 0 12px;
+  }
+  .meta{font-size:14px;line-height:1.43;letter-spacing:-0.026em;color:var(--muted);margin:0;}
 
-  .rule{height:1px;background:var(--cork);border:0;margin:44px 0;}
+  .divider{height:1px;background:var(--hairline);border:0;margin:var(--section) 0;}
 
-  section.block{margin:0 0 42px;}
-  .num{
-    font-family:'Unbounded','Golos Text',sans-serif;
-    font-weight:600;font-size:13px;letter-spacing:.08em;
-    color:var(--ember);display:block;margin-bottom:10px;
+  section.item{margin:0 0 var(--section);}
+  .index{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-size:12px;font-weight:500;letter-spacing:0.05em;
+    color:var(--muted);display:block;margin-bottom:12px;
   }
   h2{
-    font-family:'Unbounded','Golos Text',sans-serif;
-    font-weight:600;
-    font-size:clamp(20px,2.8vw,25px);
-    line-height:1.28;letter-spacing:-.015em;
-    margin:0 0 14px;text-wrap:balance;
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:500;
+    font-size:clamp(24px,3.4vw,var(--h));
+    line-height:1.2;
+    letter-spacing:-0.013em;
+    color:var(--ink);
+    margin:0 0 var(--gap);
+    text-wrap:balance;
   }
-  p{margin:0 0 18px;max-width:var(--measure);}
-  p.dim{color:var(--ink-dim);}
-  strong{font-weight:600;}
+  p{margin:0 0 var(--gap);max-width:62ch;}
+  p:last-child{margin-bottom:0;}
 
-  blockquote{
-    margin:26px 0;padding:20px 24px;
-    background:var(--surface);
-    border-left:2px solid var(--ember);
-    border-radius:0 10px 10px 0;
-    font-size:18.5px;
+  .panel{
+    background:var(--ground);
+    border:1px solid var(--hairline);
+    border-radius:var(--r-card);
+    padding:var(--card);
   }
-  blockquote p{margin:0;}
+  .panel.tight{background:var(--veil);}
+  .panel h3{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:500;font-size:var(--h-sm);line-height:1.3;
+    letter-spacing:-0.015em;color:var(--ink);margin:0 0 12px;
+  }
 
-  .note{
-    margin:48px 0 0;padding:24px 26px;
-    border:1px solid var(--cork);border-radius:12px;
-    background:var(--surface);
+  .pull{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:400;
+    font-size:clamp(21px,2.6vw,26px);
+    line-height:1.3;letter-spacing:-0.015em;
+    color:var(--ink);
+    margin:var(--gap) 0;
+    padding-left:20px;
+    border-left:1px solid var(--accent);
   }
-  .note h3{
-    font-family:'Unbounded','Golos Text',sans-serif;
-    font-weight:600;font-size:17px;margin:0 0 10px;
-  }
-  .note p{margin:0;color:var(--ink-dim);font-size:16.5px;}
 
-  .closer{margin-top:52px;padding-top:34px;border-top:1px solid var(--cork);}
-  .closer h3{
-    font-family:'Unbounded','Golos Text',sans-serif;
-    font-weight:600;font-size:clamp(19px,2.4vw,23px);margin:0 0 10px;
-  }
-  .closer p{color:var(--ink-dim);margin:0 0 24px;}
-  .buttons{display:flex;flex-wrap:wrap;gap:12px;}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--gap);}
   .btn{
-    display:inline-flex;align-items:center;gap:9px;
-    padding:15px 24px;border-radius:10px;
-    font-weight:600;font-size:16px;text-decoration:none;
-    transition:background .18s ease,border-color .18s ease;
+    display:inline-flex;align-items:center;
+    height:44px;padding:0 20px;
+    border-radius:var(--r-btn);
+    font-size:14px;font-weight:500;letter-spacing:-0.026em;
+    text-decoration:none;
+    transition:background .15s ease,border-color .15s ease;
   }
-  .btn-main{background:var(--ember);color:#1a0800;}
-  .btn-main:hover{background:#ef5f0d;}
-  .btn-ghost{border:1px solid var(--cork);color:var(--cream);}
-  .btn-ghost:hover{border-color:var(--driftwood);}
-  .btn::after{content:"→";}
+  .btn-fill{background:var(--accent);color:#140600;}
+  .btn-fill:hover{background:#ff7534;}
+  .btn-ghost{border:1px solid var(--hairline);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--muted);}
 
-  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--cork);font-size:13.5px;color:var(--driftwood);}
+  footer{
+    margin-top:var(--section);
+    padding:var(--gap) 0 56px;
+    border-top:1px solid var(--hairline);
+    font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);
+  }
 
   @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
 </style>
 </head>
 <body>
 
-<main class="page">
+<div class="wrap">
   <div class="col">
 
-    <header>
+    <header class="hero">
       <p class="eyebrow">Разбор книги</p>
       <h1>Тело помнит всё</h1>
-      <p class="sub">Что из книги Бессела ван дер Колка работает на турнире — шесть идей, переведённых на язык схватки.</p>
-      <p class="byline">Бессел ван дер Колк · «Бомбора», 2020</p>
+      <p class="lead">Что из книги Бессела ван дер Колка работает на турнире — шесть идей, переведённых на язык схватки.</p>
+      <p class="meta">Бессел ван дер Колк · «Бомбора», 2020</p>
     </header>
 
-    <hr class="rule">
+    <hr class="divider">
 
-    <section class="block">
-      <span class="num">01</span>
+    <section class="item">
+      <span class="index">01</span>
       <h2>Тело помнит состояние, а не историю</h2>
       <p>Ты можешь спокойно рассказывать, как два года назад слил схватку. Проговариваешь ровно, без эмоций. А на взвешивании перед похожим турниром вдруг холодеют руки и сводит живот — и ты не понимаешь почему.</p>
-      <p class="dim">Голова помнит событие как рассказ. Тело помнит его как состояние — пульс, дыхание, зажатость. И воспроизводит это состояние, когда попадает в похожую обстановку: тот же зал, тот же запах, та же тишина перед выходом.</p>
+      <p>Голова помнит событие как рассказ. Тело помнит его как состояние: пульс, дыхание, зажатость. И воспроизводит это состояние, когда попадает в похожую обстановку — тот же зал, тот же запах, та же тишина перед выходом.</p>
     </section>
 
-    <section class="block">
-      <span class="num">02</span>
+    <section class="item">
+      <span class="index">02</span>
       <h2>Почему в схватке пропадают слова и план</h2>
       <p>Когда мозг считывает угрозу, ресурс уходит в реакцию, а не в анализ. Участки, отвечающие за речь и планирование, работают хуже. Отсюда состояние «всё понимал, а сказать и сделать не мог» — и провал в памяти после схватки.</p>
-      <p class="dim">Это не про ум и не про подготовку. Это распределение ресурсов в моменте.</p>
+      <p>Это не про ум и не про подготовку. Это распределение ресурсов в моменте.</p>
     </section>
 
-    <section class="block">
-      <span class="num">03</span>
+    <section class="item">
+      <span class="index">03</span>
       <h2>Замирание — не трусость</h2>
       <p>У тела три реакции на угрозу: бить, бежать, замереть. Третью принимают за слабость характера, хотя это такая же автоматика, как первые две.</p>
-      <p class="dim">Если тебя зажали с первых секунд и ты «выключился» — это сработала третья, а не «нет духа».</p>
+      <p>Если тебя зажали с первых секунд и ты «выключился» — сработала третья, а не «нет духа».</p>
     </section>
 
-    <section class="block">
-      <span class="num">04</span>
+    <section class="item">
+      <span class="index">04</span>
       <h2>Уговорами это не чинится</h2>
       <p>Главная мысль книги для нас: состояние меняется снизу вверх — через тело, а не через убеждение себя.</p>
-      <blockquote>
-        <p>«Соберись» не работает, потому что обращается к той части, которая сейчас и так в фоне.</p>
-      </blockquote>
-      <p class="dim">Работает другое: дыхание с длинным выдохом, ритмичное движение, разминка — всё, что возвращает контроль над телом. Не «успокоиться», а сместить физиологию.</p>
+      <p class="pull">«Соберись» не работает, потому что обращается к той части, которая сейчас и так в фоне.</p>
+      <p>Работает другое: дыхание с длинным выдохом, ритмичное движение, разминка — всё, что возвращает контроль над телом. Не «успокоиться», а сместить физиологию.</p>
     </section>
 
-    <section class="block">
-      <span class="num">05</span>
+    <section class="item">
+      <span class="index">05</span>
       <h2>Умение замечать, что происходит внутри</h2>
       <p>Ван дер Колк много пишет про способность чувствовать себя изнутри: где зажато, как идёт дыхание, что с плечами. Спортсмены часто это глушат — терпеть и не замечать.</p>
-      <p class="dim">Но если не замечаешь начало, не успеваешь вмешаться до того, как накроет.</p>
+      <p>Но если не замечаешь начало, не успеваешь вмешаться до того, как накроет.</p>
     </section>
 
-    <section class="block">
-      <span class="num">06</span>
+    <section class="item">
+      <span class="index">06</span>
       <h2>Рядом должны быть люди</h2>
       <p>Ещё один вывод книги: восстановление идёт через связь с другими, а не в одиночку. Тренер, угол, команда, партнёры — это не фон.</p>
-      <p class="dim">Это часть того, что удерживает тебя в рабочем состоянии.</p>
+      <p>Это часть того, что удерживает тебя в рабочем состоянии.</p>
     </section>
 
-    <div class="note">
-      <h3>Важно понимать</h3>
-      <p>Книга написана про тяжёлую психологическую травму — насилие, войну, катастрофы. Проигранная схватка не травма в этом смысле. Но механизм один и тот же, просто мягче: тело запоминает состояние и возвращает его в похожих условиях. Поэтому инструменты оттуда работают и на турнире.</p>
-    </div>
+    <section class="item">
+      <div class="panel tight">
+        <h3>Важно понимать</h3>
+        <p>Книга написана про тяжёлую психологическую травму — насилие, войну, катастрофы. Проигранная схватка не травма в этом смысле. Но механизм один и тот же, просто мягче: тело запоминает состояние и возвращает его в похожих условиях. Поэтому инструменты оттуда работают и на турнире.</p>
+      </div>
+    </section>
 
-    <section class="closer">
-      <h3>Читать целиком</h3>
-      <p>Это выжимка под спорт, а в книге разбор куда глубже. Купить электронную версию можно у издателя.</p>
-      <div class="buttons">
-        <a class="btn btn-main" href="https://litres.com/book/bessel-van-der-kolk/telo-pomnit-vse-kakuu-rol-psihologicheskaya-travma-igr-51388931/" target="_blank" rel="noopener">Купить книгу</a>
-        <a class="btn btn-ghost" href="https://t.me/adams_system" target="_blank" rel="noopener">Перейти в канал</a>
+    <section class="item">
+      <div class="panel">
+        <h3>Читать целиком</h3>
+        <p>Это выжимка под спорт — в книге разбор куда глубже. Электронная версия продаётся у издателя.</p>
+        <div class="actions">
+          <a class="btn btn-fill" href="https://litres.com/book/bessel-van-der-kolk/telo-pomnit-vse-kakuu-rol-psihologicheskaya-travma-igr-51388931/" target="_blank" rel="noopener">Купить книгу</a>
+          <a class="btn btn-ghost" href="https://t.me/adams_system" target="_blank" rel="noopener">Перейти в канал</a>
+        </div>
       </div>
     </section>
 
     <footer>ADAMS — спортивно-мужской ментор</footer>
 
   </div>
-</main>
+</div>
 
 </body>
 </html>
