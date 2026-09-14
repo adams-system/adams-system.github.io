@@ -13,28 +13,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=Inter:wght@400;500&display=swap">
 <style>
-  /* Дизайн-система: Modal (styles.refero.design).
-     Взяты типографическая шкала, трекинг, сетка 4px, отступы, радиусы,
-     глубина через сдвиг поверхностей и волосяные границы.
+  /* Дизайн-система Modal (styles.refero.design): шкала, трекинг, сетка 4px,
+     отступы 80/32/20, радиусы 8/12, глубина через сдвиг поверхностей.
      Акцент заменён на фирменный оранжевый ADAMS. */
   :root{
-    /* поверхности — ramp Modal без изменений */
     --void:#000000;
     --ground:#181818;
     --veil:#212525;
-    --hairline:#3a3431;     /* аналог Circuit Border, переведён в тёплый нейтральный */
+    --hairline:#3a3431;
 
-    /* текст — по правилу Modal: основной текст приглушённый, не белый */
-    --ink:#ffeee2;          /* заголовки, иконки, текст на заливке */
-    --body:#a89a8f;         /* основной текст */
-    --muted:#7d736c;        /* подписи, микрокопия */
+    --ink:#ffeee2;
+    --body:#a89a8f;
+    --muted:#7d736c;
+    --accent:#f26522;
 
-    --accent:#f26522;       /* ровно один залитый элемент на экран */
-
-    /* шкала Modal: минорная терция от 14px */
-    --display:64px; --h-lg:42px; --h:30px; --h-sm:24px;
-
-    --unit:4px;
     --section:80px;
     --card:32px;
     --gap:20px;
@@ -43,155 +35,237 @@
   }
 
   *,*::before,*::after{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
 
   body{
     margin:0;
     background:var(--void);
     color:var(--body);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-    font-size:16px;
-    line-height:1.5;
-    letter-spacing:-0.022em;
+    font-size:16px;line-height:1.5;letter-spacing:-0.022em;
     font-feature-settings:'cv11';
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   a{color:inherit;}
   :focus-visible{outline:1px solid var(--accent);outline-offset:4px;}
 
+  /* полоса прогресса чтения */
+  #progress{
+    position:fixed;top:0;left:0;height:2px;width:0;
+    background:var(--accent);z-index:50;
+    transition:width .1s linear;
+  }
+
   .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,5vw,40px);}
   .col{max-width:680px;}
 
-  header.hero{padding:clamp(56px,10vw,120px) 0 0;}
+  /* ——— герой ——— */
+  .hero{
+    position:relative;
+    padding:clamp(64px,11vw,132px) 0 clamp(48px,7vw,80px);
+  }
+  .glow{
+    position:absolute;top:-10%;left:50%;
+    width:min(720px,110vw);aspect-ratio:1;
+    transform:translateX(-50%);
+    background:radial-gradient(circle, rgba(242,101,34,.13) 0%, rgba(242,101,34,0) 62%);
+    pointer-events:none;
+    animation:breathe 7s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{opacity:.75;transform:translateX(-50%) scale(1);}
+    50%    {opacity:1;  transform:translateX(-50%) scale(1.06);}
+  }
+
+  .hero-inner{position:relative;display:grid;gap:clamp(32px,5vw,56px);}
+  @media (min-width:860px){
+    .hero-inner{grid-template-columns:1fr 260px;align-items:center;}
+  }
+
+  /* объект-книга */
+  .book{
+    perspective:1200px;
+    justify-self:center;
+    width:min(230px,62vw);
+  }
+  .book-inner{
+    position:relative;
+    aspect-ratio:2/3;
+    transform-style:preserve-3d;
+    transform:rotateY(-16deg) rotateX(4deg);
+    animation:float 6s ease-in-out infinite;
+    border-radius:4px 8px 8px 4px;
+    overflow:hidden;
+    background:linear-gradient(135deg,#1d3fa8,#12277a);
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.06) inset;
+  }
+  .book-inner img{width:100%;height:100%;object-fit:cover;display:block;}
+  .book-face{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:center;gap:10px;
+    padding:22px 18px;
+    text-align:center;
+  }
+  .book-face .t{
+    font-family:'Inter Tight',sans-serif;font-weight:500;
+    font-size:22px;line-height:1.05;letter-spacing:-0.02em;
+    color:#ffd84d;text-transform:uppercase;
+  }
+  .book-face .a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+  .book-inner::after{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:12px;
+    background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0));
+  }
+  @keyframes float{
+    0%,100%{transform:rotateY(-16deg) rotateX(4deg) translateY(0);}
+    50%    {transform:rotateY(-11deg) rotateX(2deg) translateY(-14px);}
+  }
 
   .eyebrow{
-    font-size:12px;font-weight:500;line-height:1.33;
-    letter-spacing:0.05em;text-transform:uppercase;
-    color:var(--muted);
-    margin:0 0 var(--gap);
+    font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 var(--gap);
   }
-
   h1{
-    font-family:'Inter Tight','Inter',sans-serif;
-    font-weight:400;
-    font-size:clamp(38px,7vw,var(--display));
-    line-height:1;
-    letter-spacing:-0.007em;
-    color:var(--ink);
-    margin:0 0 var(--gap);
-    text-wrap:balance;
+    font-family:'Inter Tight','Inter',sans-serif;font-weight:400;
+    font-size:clamp(38px,7vw,64px);line-height:1;letter-spacing:-0.007em;
+    color:var(--ink);margin:0 0 var(--gap);text-wrap:balance;
   }
-  .lead{
-    font-size:20px;line-height:1.5;letter-spacing:-0.018em;
-    max-width:44ch;margin:0 0 12px;
-  }
+  .lead{font-size:20px;line-height:1.5;letter-spacing:-0.018em;max-width:40ch;margin:0 0 12px;}
   .meta{font-size:14px;line-height:1.43;letter-spacing:-0.026em;color:var(--muted);margin:0;}
 
-  .divider{height:1px;background:var(--hairline);border:0;margin:var(--section) 0;}
+  .divider{height:1px;background:var(--hairline);border:0;margin:0 0 var(--section);}
 
+  /* ——— секции ——— */
   section.item{margin:0 0 var(--section);}
   .index{
     font-family:'Inter Tight','Inter',sans-serif;
-    font-size:12px;font-weight:500;letter-spacing:0.05em;
-    color:var(--muted);display:block;margin-bottom:12px;
+    font-size:12px;font-weight:500;letter-spacing:.05em;
+    color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:12px;
   }
+  .index::after{
+    content:"";height:1px;flex:1;max-width:0;
+    background:linear-gradient(90deg,var(--accent),transparent);
+    transition:max-width .9s cubic-bezier(.2,.7,.2,1) .15s;
+  }
+  .reveal.in .index::after{max-width:160px;}
+
   h2{
-    font-family:'Inter Tight','Inter',sans-serif;
-    font-weight:500;
-    font-size:clamp(24px,3.4vw,var(--h));
-    line-height:1.2;
-    letter-spacing:-0.013em;
-    color:var(--ink);
-    margin:0 0 var(--gap);
-    text-wrap:balance;
+    font-family:'Inter Tight','Inter',sans-serif;font-weight:500;
+    font-size:clamp(24px,3.4vw,30px);line-height:1.2;letter-spacing:-0.013em;
+    color:var(--ink);margin:0 0 var(--gap);text-wrap:balance;
   }
   p{margin:0 0 var(--gap);max-width:62ch;}
   p:last-child{margin-bottom:0;}
 
-  .panel{
-    background:var(--ground);
-    border:1px solid var(--hairline);
-    border-radius:var(--r-card);
-    padding:var(--card);
-  }
-  .panel.tight{background:var(--veil);}
-  .panel h3{
-    font-family:'Inter Tight','Inter',sans-serif;
-    font-weight:500;font-size:var(--h-sm);line-height:1.3;
-    letter-spacing:-0.015em;color:var(--ink);margin:0 0 12px;
+  .pull{
+    font-family:'Inter Tight','Inter',sans-serif;font-weight:400;
+    font-size:clamp(21px,2.6vw,26px);line-height:1.3;letter-spacing:-0.015em;
+    color:var(--ink);margin:var(--gap) 0;padding-left:20px;
+    border-left:1px solid var(--accent);
   }
 
-  .pull{
-    font-family:'Inter Tight','Inter',sans-serif;
-    font-weight:400;
-    font-size:clamp(21px,2.6vw,26px);
-    line-height:1.3;letter-spacing:-0.015em;
-    color:var(--ink);
-    margin:var(--gap) 0;
-    padding-left:20px;
-    border-left:1px solid var(--accent);
+  .panel{
+    background:var(--ground);border:1px solid var(--hairline);
+    border-radius:var(--r-card);padding:var(--card);
+    transition:border-color .3s ease;
+  }
+  .panel:hover{border-color:#4b433e;}
+  .panel.tight{background:var(--veil);}
+  .panel h3{
+    font-family:'Inter Tight','Inter',sans-serif;font-weight:500;
+    font-size:24px;line-height:1.3;letter-spacing:-0.015em;color:var(--ink);margin:0 0 12px;
   }
 
   .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--gap);}
   .btn{
-    display:inline-flex;align-items:center;
-    height:44px;padding:0 20px;
-    border-radius:var(--r-btn);
-    font-size:14px;font-weight:500;letter-spacing:-0.026em;
-    text-decoration:none;
-    transition:background .15s ease,border-color .15s ease;
+    display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;
+    border-radius:var(--r-btn);font-size:14px;font-weight:500;letter-spacing:-0.026em;
+    text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease;
   }
+  .btn:hover{transform:translateY(-1px);}
   .btn-fill{background:var(--accent);color:#140600;}
   .btn-fill:hover{background:#ff7534;}
   .btn-ghost{border:1px solid var(--hairline);color:var(--ink);}
   .btn-ghost:hover{border-color:var(--muted);}
 
   footer{
-    margin-top:var(--section);
-    padding:var(--gap) 0 56px;
+    margin-top:var(--section);padding:var(--gap) 0 56px;
     border-top:1px solid var(--hairline);
-    font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);
+    font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
   }
 
-  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+  /* ——— появление при скролле ——— */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* вход героя */
+  .rise{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
+  .rise.d1{animation-delay:.05s;} .rise.d2{animation-delay:.16s;}
+  .rise.d3{animation-delay:.27s;} .rise.d4{animation-delay:.38s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation:none !important;transition:none !important;}
+    .reveal{opacity:1;transform:none;}
+    .rise{opacity:1;transform:none;}
+    .reveal.in .index::after{max-width:160px;}
+  }
 </style>
 </head>
 <body>
+
+<div id="progress"></div>
 
 <div class="wrap">
   <div class="col">
 
     <header class="hero">
-      <p class="eyebrow">Разбор книги</p>
-      <h1>Тело помнит всё</h1>
-      <p class="lead">Что из книги Бессела ван дер Колка работает на турнире — шесть идей, переведённых на язык схватки.</p>
-      <p class="meta">Бессел ван дер Колк · «Бомбора», 2020</p>
+      <div class="glow" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow rise d1">Разбор книги</p>
+          <h1 class="rise d2">Тело помнит всё</h1>
+          <p class="lead rise d3">Что из книги Бессела ван дер Колка работает на турнире — шесть идей, переведённых на язык схватки.</p>
+          <p class="meta rise d3">Бессел ван дер Колк · «Бомбора», 2020</p>
+        </div>
+
+        <div class="book rise d4" aria-hidden="true">
+          <div class="book-inner" id="bookInner">
+            <div class="book-face">
+              <span class="a">Бессел ван дер Колк</span>
+              <span class="t">Тело<br>помнит<br>всё</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
 
     <hr class="divider">
 
-    <section class="item">
+    <section class="item reveal">
       <span class="index">01</span>
       <h2>Тело помнит состояние, а не историю</h2>
       <p>Ты можешь спокойно рассказывать, как два года назад слил схватку. Проговариваешь ровно, без эмоций. А на взвешивании перед похожим турниром вдруг холодеют руки и сводит живот — и ты не понимаешь почему.</p>
       <p>Голова помнит событие как рассказ. Тело помнит его как состояние: пульс, дыхание, зажатость. И воспроизводит это состояние, когда попадает в похожую обстановку — тот же зал, тот же запах, та же тишина перед выходом.</p>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <span class="index">02</span>
       <h2>Почему в схватке пропадают слова и план</h2>
       <p>Когда мозг считывает угрозу, ресурс уходит в реакцию, а не в анализ. Участки, отвечающие за речь и планирование, работают хуже. Отсюда состояние «всё понимал, а сказать и сделать не мог» — и провал в памяти после схватки.</p>
       <p>Это не про ум и не про подготовку. Это распределение ресурсов в моменте.</p>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <span class="index">03</span>
       <h2>Замирание — не трусость</h2>
       <p>У тела три реакции на угрозу: бить, бежать, замереть. Третью принимают за слабость характера, хотя это такая же автоматика, как первые две.</p>
       <p>Если тебя зажали с первых секунд и ты «выключился» — сработала третья, а не «нет духа».</p>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <span class="index">04</span>
       <h2>Уговорами это не чинится</h2>
       <p>Главная мысль книги для нас: состояние меняется снизу вверх — через тело, а не через убеждение себя.</p>
@@ -199,28 +273,28 @@
       <p>Работает другое: дыхание с длинным выдохом, ритмичное движение, разминка — всё, что возвращает контроль над телом. Не «успокоиться», а сместить физиологию.</p>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <span class="index">05</span>
       <h2>Умение замечать, что происходит внутри</h2>
       <p>Ван дер Колк много пишет про способность чувствовать себя изнутри: где зажато, как идёт дыхание, что с плечами. Спортсмены часто это глушат — терпеть и не замечать.</p>
       <p>Но если не замечаешь начало, не успеваешь вмешаться до того, как накроет.</p>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <span class="index">06</span>
       <h2>Рядом должны быть люди</h2>
       <p>Ещё один вывод книги: восстановление идёт через связь с другими, а не в одиночку. Тренер, угол, команда, партнёры — это не фон.</p>
       <p>Это часть того, что удерживает тебя в рабочем состоянии.</p>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <div class="panel tight">
         <h3>Важно понимать</h3>
         <p>Книга написана про тяжёлую психологическую травму — насилие, войну, катастрофы. Проигранная схватка не травма в этом смысле. Но механизм один и тот же, просто мягче: тело запоминает состояние и возвращает его в похожих условиях. Поэтому инструменты оттуда работают и на турнире.</p>
       </div>
     </section>
 
-    <section class="item">
+    <section class="item reveal">
       <div class="panel">
         <h3>Читать целиком</h3>
         <p>Это выжимка под спорт — в книге разбор куда глубже. Электронная версия продаётся у издателя.</p>
@@ -235,6 +309,50 @@
 
   </div>
 </div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // появление блоков при попадании в экран
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  // полоса прогресса чтения
+  var bar = document.getElementById('progress');
+  var ticking = false;
+  function draw(){
+    var h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+    ticking = false;
+  }
+  addEventListener('scroll', function(){
+    if (!ticking) { ticking = true; requestAnimationFrame(draw); }
+  }, { passive: true });
+  draw();
+
+  // книга чуть поворачивается за курсором
+  var book = document.getElementById('bookInner');
+  if (book && !reduce && matchMedia('(hover: hover)').matches) {
+    addEventListener('mousemove', function(ev){
+      var x = (ev.clientX / innerWidth - 0.5) * 2;
+      var y = (ev.clientY / innerHeight - 0.5) * 2;
+      book.style.animation = 'none';
+      book.style.transform =
+        'rotateY(' + (-14 + x * 7) + 'deg) rotateX(' + (3 - y * 5) + 'deg) translateY(' + (-y * 6) + 'px)';
+    }, { passive: true });
+  }
+})();
+</script>
 
 </body>
 </html>
