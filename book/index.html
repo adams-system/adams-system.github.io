@@ -173,6 +173,22 @@
     font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
   }
 
+
+  /* ——— 3D-сцены разделов ——— */
+  .scene{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/8;
+    max-height:260px;
+    margin:0 0 var(--gap);
+    border:1px solid var(--hairline);
+    border-radius:var(--r-card);
+    background:radial-gradient(ellipse 70% 80% at 50% 50%, #1a1512 0%, #0a0908 72%);
+    overflow:hidden;
+  }
+  .scene canvas{display:block;width:100% !important;height:100% !important;}
+  @media (max-width:560px){ .scene{aspect-ratio:16/11;} }
+
   /* ——— появление при скролле ——— */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
   .reveal.in{opacity:1;transform:none;}
@@ -225,6 +241,7 @@
 
     <section class="item reveal">
       <span class="index">01</span>
+      <div class="scene" data-scene="pulse" aria-hidden="true"></div>
       <h2>Тело помнит состояние, а не историю</h2>
       <p>Ты можешь спокойно рассказывать, как два года назад слил схватку. Проговариваешь ровно, без эмоций. А на взвешивании перед похожим турниром вдруг холодеют руки и сводит живот — и ты не понимаешь почему.</p>
       <p>Голова помнит событие как рассказ. Тело помнит его как состояние: пульс, дыхание, зажатость. И воспроизводит это состояние, когда попадает в похожую обстановку — тот же зал, тот же запах, та же тишина перед выходом.</p>
@@ -232,6 +249,7 @@
 
     <section class="item reveal">
       <span class="index">02</span>
+      <div class="scene" data-scene="network" aria-hidden="true"></div>
       <h2>Почему в схватке пропадают слова и план</h2>
       <p>Когда мозг считывает угрозу, ресурс уходит в реакцию, а не в анализ. Участки, отвечающие за речь и планирование, работают хуже. Отсюда состояние «всё понимал, а сказать и сделать не мог» — и провал в памяти после схватки.</p>
       <p>Это не про ум и не про подготовку. Это распределение ресурсов в моменте.</p>
@@ -239,6 +257,7 @@
 
     <section class="item reveal">
       <span class="index">03</span>
+      <div class="scene" data-scene="freeze" aria-hidden="true"></div>
       <h2>Замирание — не трусость</h2>
       <p>У тела три реакции на угрозу: бить, бежать, замереть. Третью принимают за слабость характера, хотя это такая же автоматика, как первые две.</p>
       <p>Если тебя зажали с первых секунд и ты «выключился» — сработала третья, а не «нет духа».</p>
@@ -246,6 +265,7 @@
 
     <section class="item reveal">
       <span class="index">04</span>
+      <div class="scene" data-scene="layers" aria-hidden="true"></div>
       <h2>Уговорами это не чинится</h2>
       <p>Главная мысль книги для нас: состояние меняется снизу вверх — через тело, а не через убеждение себя.</p>
       <p class="pull">«Соберись» не работает, потому что обращается к той части, которая сейчас и так в фоне.</p>
@@ -254,6 +274,7 @@
 
     <section class="item reveal">
       <span class="index">05</span>
+      <div class="scene" data-scene="sense" aria-hidden="true"></div>
       <h2>Умение замечать, что происходит внутри</h2>
       <p>Ван дер Колк много пишет про способность чувствовать себя изнутри: где зажато, как идёт дыхание, что с плечами. Спортсмены часто это глушат — терпеть и не замечать.</p>
       <p>Но если не замечаешь начало, не успеваешь вмешаться до того, как накроет.</p>
@@ -261,6 +282,7 @@
 
     <section class="item reveal">
       <span class="index">06</span>
+      <div class="scene" data-scene="people" aria-hidden="true"></div>
       <h2>Рядом должны быть люди</h2>
       <p>Ещё один вывод книги: восстановление идёт через связь с другими, а не в одиночку. Тренер, угол, команда, партнёры — это не фон.</p>
       <p>Это часть того, что удерживает тебя в рабочем состоянии.</p>
@@ -332,6 +354,8 @@
   }
 })();
 </script>
+
+<script type="module" src="scenes.js"></script>
 
 </body>
 </html>
