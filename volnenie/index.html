@@ -26,6 +26,7 @@
     color-scheme: dark;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
   html, body { height: 100%; margin: 0; }
   body {
     background: var(--graphite); color: var(--field); font-family: var(--fb);
@@ -242,7 +243,7 @@
     vibe(15);
     thought.className = "thought";
     thought.style.transform = ""; thought.style.opacity = "";
-    thought.textContent = "«" + c.dataset.t + "»";
+    thought.textContent = "«" + c.dataset.t.replace(/\.$/, "") + "»";
     document.getElementById("toRitual").hidden = true;
     document.getElementById("hint").hidden = false;
     if (c.dataset.ok) {
@@ -267,6 +268,8 @@
       thought.classList.add("good");
       thought.textContent = "«Я волнуюсь и могу начать»";
       document.getElementById("hint").hidden = true;
+      document.getElementById("breakTitle").textContent = "Теперь это готовность";
+      document.getElementById("breakSub").textContent = "Одна короткая фраза вместо приговора. Закрепим её.";
       document.getElementById("toRitual").hidden = false;
     }, 480);
   }
